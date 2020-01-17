@@ -1,8 +1,8 @@
 var lst = localStorage;var total;var db = false;var s1 = 0;
-var first_0 = false;var keynums = [];var trp = false;
+var first_0 = false;var keynums = [];var trp = false;var p5 = false;
 var times = 0;var c0 = 0;var types = 0;var half = false;
 var b0 = false;var b1 = false;var se2;var opt = [];var keyin = false;
-var options = ['-', '2x', '3x', 't/2'];var rank_now = null;
+var options = ['-', '2x', '4x', 't/2', '+5'];var rank_now = null;
 var courses = ['↑↓←→', 'D/F/J/K', 'Space', 'Enter', 'A~Z/1~9', '4キー', 'Click', '-'];
 var k1 = {8:'BackSpace',13:'Enter',16:'shift',17:'ctrl',18:'alt',32:'Space',189:'-'};
 var cl = false;var score = 0;var keyname = [];
@@ -11,13 +11,24 @@ for (i=0;i<36;i++){
     if (i<10) k1[(i + 48)] = i.toString();
     else k1[(i + 55)] = alpb[i - 10];
 }
+function index(list, val){
+    return 
+}
 var key = {};
 var k0 = Object.keys(k1);
 k0.sort();
 for(var i=0;i<k0.length;i++) key[ k0[i] ] = k1[ k0[i] ];
 if (lst.getItem('#keyrank') === null){
-    var ranks = JSON.stringify({1:{"score":0, "push":0, "course":8, "option": "-"}, 2:{"score":0, "push":0, "course":8, "option": "-"}, 3:{"score":0, "push":0, "course":8, "option": "-"}, 4:{"score":0, "push":0, "course":8, "option": "-"}, 5:{"score":0, "push":0, "course":8, "option": "-"}});
+    var ranks = JSON.stringify({1:{"score":0, "push":0, "course":8, "option": 0}, 2:{"score":0, "push":0, "course":8, "option": 0}, 3:{"score":0, "push":0, "course":8, "option": 0}, 4:{"score":0, "push":0, "course":8, "option": 0}, 5:{"score":0, "push":0, "course":8, "option": 0}});
     lst.setItem('#keyrank', ranks);
+}else{
+    var olds = ['-', '2x', '4x', '1/2', '+5'];
+    var json = JSON.parse(lst.getItem('#keyrank'));
+    for (i=0;i<Object.keys(json).length;i++){
+        var itms = json[i + 1]["option"];
+        var litms = itms.split(', ');
+        // litms = litms.map(function (x){return olds.indexOf(x);});
+    }
 }
 var nums = Object.keys(key).map(str => parseInt(str, 10));
 function course(x){
@@ -56,6 +67,10 @@ function course(x){
         case 5:
             keynums = nums;
             score = 180;
+            if (cl){
+                p5 = true;
+                opt.push(4);
+            }
             break;
         case 6:
             b_s = true;
@@ -71,6 +86,9 @@ function course(x){
             break;
     }
     if (!cl){
+        opt = opt.filter(function (x, i, self) {
+            return self.indexOf(x) === i;
+        });
         if (b_s) keyselect();
         else startcheck(x);
     }else{
@@ -86,7 +104,7 @@ function reset(){
 }
 function mainMenu(){
     reset();
-    document.getElementById('main').innerHTML = "<p class='msg_c' style='margin-bottom: 7.5px;'>コースを選択してください<br><span style='font-size: 17.5px;'>(カッコ内はオプション操作)</span></p><p class='msg_c' id='alert'>※製作者は、このゲームをプレイして起きた損害の責任は負いません。</p><div id='select_course'><input type='button' class='selector' id='sel1' onclick='course(1)' value='上下左右&#32;(Reset)'><br><input type='button' class='selector' id='sel2' onclick='course(2)' value='D/F/J/K&#32;(x2)'><br><input type='button' class='selector' id='sel3' onclick='course(3)' value='スペース&#32;(x3)'><br><input type='button' class='selector' id='sel4' onclick='course(4)' value='エンター&#32;(1/2)'><br><input type='button' class='selector' id='sel5' onclick='course(5)' value='アルファベット+数字'><br><input type='button' class='selector' id='sel6' onclick='course(6)' value='お好きな4キー'><br><input type='button' class='selector' id='sel7' onclick='course(7)' value='マウスクリック'><br><hr color='#000000' size='2' width='80%' noshade style='text-align: center; border-style: dashed;'><input type='button' class='selector' id='sel8' onclick='ranking()' value='ランキングを表示'><br><input type='button' class='selector' id='sel8' onclick='checker()' value='コントローラー'><br></div>";
+    document.getElementById('main').innerHTML = "<p class='msg_c' style='margin-bottom: 7.5px;'>コースを選択してください<br><span style='font-size: 17.5px;'>(カッコ内はオプション操作)</span></p><p class='msg_c' id='alert'>※製作者は、このゲームをプレイして起きた損害の責任は負いません。</p><div id='select_course'><input type='button' class='selector' id='sel1' onclick='course(1)' value='上下左右&#32;(Reset)'><br><input type='button' class='selector' id='sel2' onclick='course(2)' value='D/F/J/K&#32;(x2)'><br><input type='button' class='selector' id='sel3' onclick='course(3)' value='スペース&#32;(x4)'><br><input type='button' class='selector' id='sel4' onclick='course(4)' value='エンター&#32;(1/2)'><br><input type='button' class='selector' id='sel5' onclick='course(5)' value='A~Z / 1~9&#32;(+5)'><br><input type='button' class='selector' id='sel6' onclick='course(6)' value='お好きな4キー'><br><input type='button' class='selector' id='sel7' onclick='course(7)' value='マウスクリック'><br><hr color='#000000' size='2' width='80%' noshade style='text-align: center; border-style: dashed;'><input type='button' class='selector' id='sel8' onclick='ranking()' value='ランキングを表示'><br><input type='button' class='selector' id='sel8' onclick='checker()' value='コントローラー'><br></div>";
 }
 function keyselect(){
     b0 = true;
@@ -156,11 +174,23 @@ function pressKeys(){
     b1 = true;
     keyin = true;
     var left = 10;
-    if (half) left = 5;
+    if (p5) left += 5;
+    if (half) left = Math.round(left / 2);
+    if (trp) left = Math.round(left / 2);
     document.getElementById('body0').focus();
     document.getElementById('main').innerHTML = "<p class='msg_c'>Press:<span id='showtimes'>0</span>key<br><span id='showctd'>" + left + "</span>&#32;seconds to the end...</p>" + '<div id=set01><p class="clickwin" id="clicks" onclick="keyplus_1()">ここをクリック！</p></div><br>';
     if (types !== 7) document.getElementById('clicks').innerHTML = 'キーを連打！';
-    if (half){
+    setTimeout(function(){
+        b1 = false;
+        keyin = false;
+        showresults();
+    }, left * 1000);
+    /*if (half){
+        setTimeout(function(){
+            b1 = false;
+            showresults();
+        }, 2000);
+    }else if (trp){
         setTimeout(function(){
             b1 = false;
             showresults();
@@ -171,7 +201,7 @@ function pressKeys(){
             keyin = false;
             showresults();
         }, 10000);
-    }
+    }*/
     var si2 = setInterval(function(){
         left --;
         if (left < 1){
@@ -302,8 +332,9 @@ function showresults(){
     document.getElementById('main').innerHTML = '<p class="msg_c">スコアを計算中！<br>ちょっと待っててね。</p>';
     s1 = times;
     if (db){score *= 2;times /= 2;}
-    if (trp){score *= 3;times = Math.floor(times / 3);}
+    if (trp){score *= 2;times *= 1.5;}
     if (half) times *= 2;
+    if (p5) times = Math.round(times * 0.4);
     total = score * times + (score * 10) * parseInt((times - (times % 100))/100);
     setTimeout(result_format(), 3000);
 }
@@ -327,7 +358,7 @@ function clear(){
         if (window.confirm('本当にリセットしますか？')){
             localStorage.removeItem('#keyrank');
             if (lst.getItem('#keyrank') === null){
-                var ranks = JSON.stringify({1:{"score":0, "push":0, "course":8, "option": "-"}, 2:{"score":0, "push":0, "course":8, "option": "-"}, 3:{"score":0, "push":0, "course":8, "option": "-"}, 4:{"score":0, "push":0, "course":8, "option": "-"}, 5:{"score":0, "push":0, "course":8, "option": "-"}});
+                var ranks = JSON.stringify({1:{"score":0, "push":0, "course":8, "option": 0}, 2:{"score":0, "push":0, "course":8, "option": 0}, 3:{"score":0, "push":0, "course":8, "option": 0}, 4:{"score":0, "push":0, "course":8, "option": 0}, 5:{"score":0, "push":0, "course":8, "option": 0}});
                 lst.setItem('#keyrank', ranks);
             }
         }
