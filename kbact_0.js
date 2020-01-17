@@ -99,7 +99,7 @@ function course(x){
 function reset(){
     times = 0;c0 = 0;trp = false;opt = [];
     b0 = false;b1 = false;db = false;rank_now = null;
-    keynums = [];keyname = [];half = false;
+    keynums = [];keyname = [];half = false;p5 = false;
     score = 0;types = 0;first_0 = false;
 }
 function mainMenu(){
