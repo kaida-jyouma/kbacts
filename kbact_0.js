@@ -24,13 +24,12 @@ if (lst.getItem('#keyrank') === null){
                 l_0.push(olds.indexOf(litms[j]).toString());
             }js0[i + 1]["option"] = parseInt(l_0.sort().join(''));}
         console.log('js0');console.log(JSON.stringify(js0));localStorage.setItem('#keyrank', JSON.stringify(js0));
-        window.alert('ランキングの保存バージョンが古いため、アップデートを行いました。\nまれにデータ等が消える場合がありますが、ご了承ください。');}
-}
+        window.alert('ランキングの保存バージョンが古いため、アップデートを行いました。\nまれにデータ等が消える場合がありますが、ご了承ください。');}}
 var nums = Object.keys(key).map(str => parseInt(str, 10));
-function scplc(){
-    if (!scpl) scpl = true;
-    else scpl = false;
+function res_t(){
+    
 }
+function scplc(){if (!scpl) scpl = true;else scpl = false;}
 function course(x){
     x = x || 0;
     var b_s = false;
@@ -275,7 +274,7 @@ function showresults(){first_0 = true;
     if (trp){score *= 2;times *= 2;}
     if (half) times *= 2;
     if (p5) times = Math.round(times * 0.4);
-    if (scpl) score *= 10;
+    if (scpl){score *= 1.5;times *= 2;}
     total = score * times + (score * 10) * parseInt((times - (times % 100))/100);setTimeout(result_format(), 3000);
 }
 function ranking(){
