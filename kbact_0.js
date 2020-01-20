@@ -29,7 +29,15 @@ var nums = Object.keys(key).map(str => parseInt(str, 10));
 function res_t(){
     
 }
-function scplc(){if (!scpl) scpl = true;else scpl = false;}
+function scplc(){
+    if (!scpl){
+        scpl = true;
+        document.getElementById("ck_0").innerHTML = "　";
+    }else{
+        scpl = false;
+        document.getElementById('ck_0').innerHTML = "。";
+    }
+}
 function course(x){
     x = x || 0;
     var b_s = false;
@@ -94,7 +102,7 @@ function reset(){
 }
 function mainMenu(){
     reset();
-    document.getElementById('main').innerHTML = "<p class='msg_c' style='margin-bottom: 7.5px;'>コースを選択してください<br><span style='font-size: 17.5px;'>(カッコ内はオプション操作)</span></p><p class='msg_c' id='alert'>※製作者は、このゲームをプレイして起きた損害の責任は負いません。</p><div id='select_course'><input type='button' class='selector' id='sel1' onclick='course(1)' value='上下左右&#32;(Reset)'><br><input type='button' class='selector' id='sel2' onclick='course(2)' value='D/F/J/K&#32;(x2)'><br><input type='button' class='selector' id='sel3' onclick='course(3)' value='スペース&#32;(x4)'><br><input type='button' class='selector' id='sel4' onclick='course(4)' value='エンター&#32;(1/2)'><br><input type='button' class='selector' id='sel5' onclick='course(5)' value='A~Z / 1~9&#32;(+5)'><br><input type='button' class='selector' id='sel6' onclick='course(6)' value='お好きな4キー'><br><input type='button' class='selector' id='sel7' onclick='course(7)' value='マウスクリック'><br><hr color='#000000' size='2' width='80%' noshade style='text-align: center; border-style: dashed;'><input type='button' class='selector' id='sel8' onclick='ranking()' value='ランキングを表示'><br><input type='button' class='selector' id='sel8' onclick='checker()' value='コントローラー'><br></div>";
+    document.getElementById('main').innerHTML = "<p class='msg_c' style='margin-bottom: 7.5px;' onclick='scplc()'>コースを選択してください<br><span style='font-size: 17.5px;'>(カッコ内はオプション操作)</span></p><p class='msg_c' id='alert'>※製作者は、このゲームをプレイして起きた損害の責任は負いません<span id='ck_0'>。</span></p><div id='select_course'><input type='button' class='selector' id='sel1' onclick='course(1)' value='上下左右&#32;(Reset)'><br><input type='button' class='selector' id='sel2' onclick='course(2)' value='D/F/J/K&#32;(x2)'><br><input type='button' class='selector' id='sel3' onclick='course(3)' value='スペース&#32;(x4)'><br><input type='button' class='selector' id='sel4' onclick='course(4)' value='エンター&#32;(1/2)'><br><input type='button' class='selector' id='sel5' onclick='course(5)' value='A~Z / 1~9&#32;(+5)'><br><input type='button' class='selector' id='sel6' onclick='course(6)' value='お好きな4キー'><br><input type='button' class='selector' id='sel7' onclick='course(7)' value='マウスクリック'><br><hr color='#000000' size='2' width='80%' noshade style='text-align: center; border-style: dashed;'><input type='button' class='selector' id='sel8' onclick='ranking()' value='ランキングを表示'><br><input type='button' class='selector' id='sel8' onclick='checker()' value='コントローラー'><br></div>";
 }
 function keyselect(){
     b0 = true;
