@@ -26,9 +26,6 @@ if (lst.getItem('#keyrank') === null){
         console.log('js0');console.log(JSON.stringify(js0));localStorage.setItem('#keyrank', JSON.stringify(js0));
         window.alert('ランキングの保存バージョンが古いため、アップデートを行いました。\nまれにデータ等が消える場合がありますが、ご了承ください。');}}
 var nums = Object.keys(key).map(str => parseInt(str, 10));
-function res_t(){
-    
-}
 function scplc(){
     if (!scpl){
         scpl = true;
@@ -97,7 +94,7 @@ function course(x){
 }
 function reset(){
     times = 0;c0 = 0;trp = false;opt = [];p5 = false;b0 = false;
-    b1 = false;db = false;rank_now = null;keynums = [];
+    b1 = false;db = false;rank_now = null;keynums = [];scpl = false;
     keyname = [];half = false;score = 0;types = 0;first_0 = false;
 }
 function mainMenu(){
@@ -128,6 +125,9 @@ function startcheck_1(){
     if (opt.length <= 0) opt.push(0);
     for (i=0;i<keyname.length;i++) keynums.push(parseInt(findFromValue(key, keyname[i])));
     document.getElementById('main').innerHTML = "<p class='msg_c'>これで開始します。よろしいですか？</p><p id='dispcourse'>コース:&#32;「&#32;お好きな4キー&#32;」</p><p id='dispcourse'>キー:&#32;「&#32;" + keyname.join(', ') + "&#32;」<br>Option:&#32;" + opt.sort(function (a, b){return a - b;}).map(function (x){return options[x];}).join(', ') + "</p><input type='button' class='selector' id='sel_st' onclick='gameStart()' value='Yes'><br><input type='button' class='selector' id='sel_menu' onclick='keyselect()' value='Back'><br><input type='button' class='selector' id='sel_menu' onclick='mainMenu()' value='Goto:&#32;MainMenu'><br>";
+}
+function rest(){
+    // if types
 }
 function gameStart(){
     var t5 = 5;
@@ -172,13 +172,15 @@ function result_format(){
     document.getElementById('op').innerHTML = opt_now.map(function (x){return options[x];}).join(', ');
     var json = JSON.parse(lst.getItem('#keyrank'));
     if (first_0){
+        var pushl = 0;
+        for (i=0;i<Object.keys(json).length;i++) if (pushl < parseInt(json[i + 1]["push"])) pushl = parseInt(json[i + 1]["push"]);
         if (total > parseInt(json[1]["score"])){
             document.getElementById('ranks').innerHTML = 'デバイス内ランキング1位達成';
             rank_now = 1;
-            json[5]["score"] = json[4]["score"];
-            json[5]["push"] = json[4]["push"];
-            json[5]["course"] = json[4]["course"];
-            json[5]["option"] = json[4]["option"];
+            // json[5]["score"] = json[4]["score"];
+            // json[5]["push"] = json[4]["push"];
+            // json[5]["course"] = json[4]["course"];
+            // json[5]["option"] = json[4]["option"];
             json[4]["score"] = json[3]["score"];
             json[4]["push"] = json[3]["push"];
             json[4]["course"] = json[3]["course"];
@@ -198,10 +200,10 @@ function result_format(){
         }else if (total > parseInt(json[2]["score"])){
             document.getElementById('ranks').innerHTML = 'デバイス内ランキング2位達成';
             rank_now = 2;
-            json[5]["score"] = json[4]["score"];
-            json[5]["push"] = json[4]["push"];
-            json[5]["course"] = json[4]["course"];
-            json[5]["option"] = json[4]["option"];
+            // json[5]["score"] = json[4]["score"];
+            // json[5]["push"] = json[4]["push"];
+            // json[5]["course"] = json[4]["course"];
+            // json[5]["option"] = json[4]["option"];
             json[4]["score"] = json[3]["score"];
             json[4]["push"] = json[3]["push"];
             json[4]["course"] = json[3]["course"];
@@ -217,10 +219,10 @@ function result_format(){
         }else if (total > parseInt(json[3]["score"])){
             document.getElementById('ranks').innerHTML = 'デバイス内ランキング3位達成';
             rank_now = 3;
-            json[5]["score"] = json[4]["score"];
-            json[5]["push"] = json[4]["push"];
-            json[5]["course"] = json[4]["course"];
-            json[5]["option"] = json[4]["option"];
+            // json[5]["score"] = json[4]["score"];
+            // json[5]["push"] = json[4]["push"];
+            // json[5]["course"] = json[4]["course"];
+            // json[5]["option"] = json[4]["option"];
             json[4]["score"] = json[3]["score"];
             json[4]["push"] = json[3]["push"];
             json[4]["course"] = json[3]["course"];
@@ -232,16 +234,16 @@ function result_format(){
         }else if (total > parseInt(json[4]["score"])){
             document.getElementById('ranks').innerHTML = 'デバイス内ランキング4位達成';
             rank_now = 4;
-            json[5]["score"] = json[4]["score"];
-            json[5]["push"] = json[4]["push"];
-            json[5]["course"] = json[4]["course"];
-            json[5]["option"] = json[4]["option"];
+            // json[5]["score"] = json[4]["score"];
+            // json[5]["push"] = json[4]["push"];
+            // json[5]["course"] = json[4]["course"];
+            // json[5]["option"] = json[4]["option"];
             json[4]["score"] = total;
             json[4]["push"] = s1;
             json[4]["course"] = types;
             json[4]["option"] = parseInt(opt_now.map(function (x){return x.toString();}).join(''));
-        }else if (total > parseInt(json[5]["score"])){
-            document.getElementById('ranks').innerHTML = 'デバイス内ランキング5位達成';
+        }if (s1 > pushl){
+            document.getElementById('ranks').innerHTML = '最高連打数更新';
             rank_now = 5;
             json[5]["score"] = total;
             json[5]["push"] = s1;
@@ -267,7 +269,7 @@ function result_format(){
                 document.getElementById('ranks').innerHTML = 'デバイス内ランキング4位達成';
                 break;
             case 5:
-                document.getElementById('ranks').innerHTML = 'デバイス内ランキング5位達成';
+                document.getElementById('ranks').innerHTML = '最高連打数更新';
                 break;
             case 6:
                 document.getElementById('ranks').innerHTML = 'ランキング圏外';
@@ -289,11 +291,30 @@ function ranking(){
     if (cl){cl = false;opt = [];}
     else{var json = JSON.parse(lst.getItem('#keyrank'));
         // document.getElementById('main').innerHTML = '<p class="msg_c">準備中！<br>ちょっと待っててね。</p>' +"<input type='button' class='selector' id='sel_menu' onclick='branch_0()' value='Back'><br>";
-        document.getElementById('main').innerHTML = '<p class="msg_c">デバイス内ランキング</p><ul class="ul-des"><li class="wsets"><ul class="ul_in"><li class="lipart">順位<span id="spw" style="font-weight: 100;"></span></li><li class="lipart">スコア</li><li class="lipart">連打数</li><li class="lipart">コース</li><li class="lipart">Option</li></ul></li></ul><br>' + '<li class="wsets"><ul class="ul_in"><li class="lipart">1</li><li class="lipart">' + json[1]["score"] + '</li><li class="lipart">' + json[1]["push"] + '</li><li class="lipart">' + courses[parseInt(json[1]["course"]) - 1] + '</li><li class="lipart">' + json[1]["option"].toString().split("").map(function (x){return options[x];}).join(', ') + '</li></ul><br><ul class="ul_in"><li class="lipart">2</li><li class="lipart">' + json[2]["score"] + '</li><li class="lipart">' + json[2]["push"] + '</li><li class="lipart">' + courses[parseInt(json[2]["course"]) - 1] + '</li><li class="lipart">' + json[2]["option"].toString().split("").map(function (x){return options[x];}).join(', ') + '</li></ul><br><ul class="ul_in"><li class="lipart">3</li><li class="lipart">' + json[3]["score"] + '</li><li class="lipart">' + json[3]["push"] + '</li><li class="lipart">' + courses[parseInt(json[3]["course"]) - 1] + '</li><li class="lipart">' + json[3]["option"].toString().split("").map(function (x){return options[x];}).join(', ') + '</li></ul><br><ul class="ul_in"><li class="lipart">4</li><li class="lipart">' + json[4]["score"] + '</li><li class="lipart">' + json[4]["push"] + '</li><li class="lipart">' + courses[parseInt(json[4]["course"]) - 1] + '</li><li class="lipart">' + json[4]["option"].toString().split("").map(function (x){return options[x];}).join(', ') + '</li></ul><br><ul class="ul_in"><li class="lipart">5</li><li class="lipart">' + json[5]["score"] + '</li><li class="lipart">' + json[5]["push"] + '</li><li class="lipart">' + courses[parseInt(json[5]["course"]) - 1] + '</li><li class="lipart">' + json[5]["option"].toString().split("").map(function (x){return options[x];}).join(', ') + '</li></ul><br></li><br><br>' + "<input type='button' class='selector' id='sel_menu' onclick='branch_0()' value='Back'><br>";
+        document.getElementById('main').innerHTML = '<p class="msg_c">デバイス内ランキング</p><ul class="ul-des"><li class="wsets"><ul class="ul_in"><li class="lipart">順位<span id="spw" style="font-weight: 100;"></span></li><li class="lipart">スコア</li><li class="lipart">連打数</li><li class="lipart">コース</li><li class="lipart">Option</li></ul></li></ul><br>' + '<li class="wsets"><ul class="ul_in"><li class="lipart">1</li><li class="lipart">' + json[1]["score"] + '</li><li class="lipart">' + json[1]["push"] + '</li><li class="lipart">' + courses[parseInt(json[1]["course"]) - 1] + '</li><li class="lipart">' + json[1]["option"].toString().split("").map(function (x){return options[x];}).join(', ') + '</li></ul><br><ul class="ul_in"><li class="lipart">2</li><li class="lipart">' + json[2]["score"] + '</li><li class="lipart">' + json[2]["push"] + '</li><li class="lipart">' + courses[parseInt(json[2]["course"]) - 1] + '</li><li class="lipart">' + json[2]["option"].toString().split("").map(function (x){return options[x];}).join(', ') + '</li></ul><br><ul class="ul_in"><li class="lipart">3</li><li class="lipart">' + json[3]["score"] + '</li><li class="lipart">' + json[3]["push"] + '</li><li class="lipart">' + courses[parseInt(json[3]["course"]) - 1] + '</li><li class="lipart">' + json[3]["option"].toString().split("").map(function (x){return options[x];}).join(', ') + '</li></ul><br><ul class="ul_in"><li class="lipart">4</li><li class="lipart">' + json[4]["score"] + '</li><li class="lipart">' + json[4]["push"] + '</li><li class="lipart">' + courses[parseInt(json[4]["course"]) - 1] + '</li><li class="lipart">' + json[4]["option"].toString().split("").map(function (x){return options[x];}).join(', ') + '</li></ul><br><ul class="ul_in" id="pushdis"><li class="lipart">打数</li><li class="lipart">' + json[5]["score"] + '</li><li class="lipart">' + json[5]["push"] + '</li><li class="lipart">' + courses[parseInt(json[5]["course"]) - 1] + '</li><li class="lipart">' + json[5]["option"].toString().split("").map(function (x){return options[x];}).join(', ') + '</li></ul><br></li><br><br>' + "<input type='button' class='selector' id='sel_menu' onclick='branch_0()' value='Back'><br>";
     }}
 function branch_0(){if (score > 0) result_format();else mainMenu();}
-function clear(){score = 0;
-    if (cl){if (window.confirm('本当にリセットしますか？')){localStorage.removeItem('#keyrank');if (lst.getItem('#keyrank') === null){
-                var ranks = JSON.stringify({1:{"score":0, "push":0, "course":8, "option": 0}, 2:{"score":0, "push":0, "course":8, "option": 0}, 3:{"score":0, "push":0, "course":8, "option": 0}, 4:{"score":0, "push":0, "course":8, "option": 0}, 5:{"score":0, "push":0, "course":8, "option": 0}});
-                lst.setItem('#keyrank', ranks);}}}}
+function clear(){
+    score = 0;
+    if (cl || scpl){
+        if (window.confirm('本当にランキングをリセットしますか？')){
+            var json = JSON.parse(lst.getItem('#keyrank'));
+            for (i=0;i<4;i++){
+                json[i + 1]["score"] = 0;
+                json[i + 1]["push"] = 0;
+                json[i + 1]["course"] = 8;
+                json[i + 1]["option"] = 0;
+            }if (scpl){
+                json[5]["score"] = 0;
+                json[5]["push"] = 0;
+                json[5]["course"] = 8;
+                json[5]["option"] = 0;
+            }
+            lst.setItem("#keyrank", JSON.stringify(json));
+            cl = false;
+            scpl = false;
+            setTimeout(function (){branch_0()}, 10);
+        }
+    }
+}
 function checker(){if (!cl) cl = true;else if (cl) cl = false;}
