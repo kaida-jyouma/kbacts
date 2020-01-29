@@ -104,7 +104,7 @@ html{
 .lipart{
     float: left;
     list-style: none;
-    width: 19.5%;
+    width: 18.5%;
     border-bottom: 1.5px;
     border-style: solid;
     border-color: #000000;
@@ -120,6 +120,7 @@ ul{
 .wsets{
     margin-top: 2px;
     list-style: none;
+    margin-left: 5%;
 }
 .ul-des{
     padding: 0px;
@@ -132,4 +133,7 @@ ul{
 .ul_in{
     margin-left: 0px;
     padding-left: 0px;
+}
+#pushdis{
+    margin-top: 20px;
 }
