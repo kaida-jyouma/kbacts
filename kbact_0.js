@@ -95,7 +95,12 @@ function course(x){
 function reset(){
     times = 0;c0 = 0;trp = false;opt = [];p5 = false;b0 = false;
     b1 = false;db = false;rank_now = null;keynums = [];scpl = false;
-    keyname = [];half = false;score = 0;types = 0;first_0 = false;
+    keyname = [];half = false;score = 0;types = 0;first_0 = false;total = 0;
+}
+function re_start(){
+    total = 0;
+    times = 0;
+    course(types);
 }
 function mainMenu(){
     reset();
@@ -168,7 +173,7 @@ function result_format(){
     console.log(opt_now);
     if (opt_now.length <= 0) opt_now.push(0);
     document.getElementById('main').innerHTML = '<p class="msg_c">今回の記録</p><div id="scores"></div>';
-    document.getElementById('scores').innerHTML = '<p class="p_score">コース:&#32;<span>' + courses[types - 1] + '<p class="p_score">スコア:&#32;<span>' + total + '</span></p>' + '<p class="p_score">連打数:&#32;<span>' + s1 + '</span>, <!--span>' + (s1 / 10) + '打/秒</span--></p><p class="p_score"><span id="ranks"></span><p><p class="p_score">Option:&#32;<span id="op"></span><p>' + "<input type='button' class='selector' id='sel_rank' onclick='ranking()' value='ランキングを表示'><br>" + "<input type='button' class='selector' id='sel_menu' onclick='mainMenu()' value='Goto:&#32;MainMenu'><br>";
+    document.getElementById('scores').innerHTML = '<p class="p_score">コース:&#32;<span>' + courses[types - 1] + '<p class="p_score">スコア:&#32;<span>' + total + '</span></p>' + '<p class="p_score">連打数:&#32;<span>' + s1 + '</span>, <!--span>' + (s1 / 10) + '打/秒</span--></p><p class="p_score"><span id="ranks"></span><p><p class="p_score">Option:&#32;<span id="op"></span><p>' + "<input type='button' class='selector' id='sel_rank' onclick='ranking()' value='ランキングを表示'><br>" + "<input type='button' class='selector' id='rest_btn' onclick='re_start()' value='Re:&#32;Start'><br>" + "<input type='button' class='selector' id='sel_menu' onclick='mainMenu()' value='Goto:&#32;MainMenu'><br>";
     document.getElementById('op').innerHTML = opt_now.map(function (x){return options[x];}).join(', ');
     var json = JSON.parse(lst.getItem('#keyrank'));
     if (first_0){
@@ -242,16 +247,17 @@ function result_format(){
             json[4]["push"] = s1;
             json[4]["course"] = types;
             json[4]["option"] = parseInt(opt_now.map(function (x){return x.toString();}).join(''));
-        }if (s1 > pushl){
+        }else{
+            document.getElementById('ranks').innerHTML = 'ランキング圏外';
+            rank_now = 6;
+        }
+        if (s1 > pushl){
             document.getElementById('ranks').innerHTML = '最高連打数更新';
             rank_now = 5;
             json[5]["score"] = total;
             json[5]["push"] = s1;
             json[5]["course"] = types;
             json[5]["option"] = parseInt(opt_now.map(function (x){return x.toString();}).join(''));
-        }else{
-            document.getElementById('ranks').innerHTML = 'ランキング圏外';
-            rank_now = 6;
         }}
     if (first_0) lst.setItem('#keyrank', JSON.stringify(json));
     if (!first_0){
