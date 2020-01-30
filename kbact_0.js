@@ -113,6 +113,7 @@ function rkey(){
             if (n.length >= 4 || cm >= 10){if (cm >= 10) console.log(10);break;}
         }cm ++;}
     document.getElementById('dispkey').innerHTML = n.join(", ");
+    keyname = n;
 }
 function keyselect(){
     b0 = true;
