@@ -97,18 +97,26 @@ function reset(){
     b1 = false;db = false;rank_now = null;keynums = [];scpl = false;
     keyname = [];half = false;score = 0;types = 0;first_0 = false;total = 0;
 }
-function re_start(){
-    total = 0;
-    times = 0;
-    course(types);
-}
+function re_start(){total = 0;times = 0;course(types);}
 function mainMenu(){
-    reset();
-    document.getElementById('main').innerHTML = "<p class='msg_c' style='margin-bottom: 7.5px;' onclick='scplc()'>コースを選択してください<br><span style='font-size: 17.5px;'>(カッコ内はオプション操作)</span></p><p class='msg_c' id='alert'>※製作者は、このゲームをプレイして起きた損害の責任は負いません<span id='ck_0'>。</span></p><div id='select_course'><input type='button' class='selector' id='sel1' onclick='course(1)' value='上下左右&#32;(Reset)'><br><input type='button' class='selector' id='sel2' onclick='course(2)' value='D/F/J/K&#32;(x2)'><br><input type='button' class='selector' id='sel3' onclick='course(3)' value='スペース&#32;(x4)'><br><input type='button' class='selector' id='sel4' onclick='course(4)' value='エンター&#32;(1/2)'><br><input type='button' class='selector' id='sel5' onclick='course(5)' value='A~Z / 1~9&#32;(+5)'><br><input type='button' class='selector' id='sel6' onclick='course(6)' value='お好きな4キー'><br><input type='button' class='selector' id='sel7' onclick='course(7)' value='マウスクリック'><br><hr color='#000000' size='2' width='80%' noshade style='text-align: center; border-style: dashed;'><input type='button' class='selector' id='sel8' onclick='ranking()' value='ランキングを表示'><br><input type='button' class='selector' id='sel8' onclick='checker()' value='コントローラー'><br></div>";
+    reset();document.getElementById('main').innerHTML = "<p class='msg_c' style='margin-bottom: 7.5px;' onclick='scplc()'>コースを選択してください<br><span style='font-size: 17.5px;'>(カッコ内はオプション操作)</span></p><p class='msg_c' id='alert'>※製作者は、このゲームをプレイして起きた損害の責任は負いません<span id='ck_0'>。</span></p><div id='select_course'><input type='button' class='selector' id='sel1' onclick='course(1)' value='上下左右&#32;(Reset)'><br><input type='button' class='selector' id='sel2' onclick='course(2)' value='D/F/J/K&#32;(x2)'><br><input type='button' class='selector' id='sel3' onclick='course(3)' value='スペース&#32;(x4)'><br><input type='button' class='selector' id='sel4' onclick='course(4)' value='エンター&#32;(1/2)'><br><input type='button' class='selector' id='sel5' onclick='course(5)' value='A~Z / 1~9&#32;(+5)'><br><input type='button' class='selector' id='sel6' onclick='course(6)' value='お好きな4キー'><br><input type='button' class='selector' id='sel7' onclick='course(7)' value='マウスクリック'><br><hr color='#000000' size='2' width='80%' noshade style='text-align: center; border-style: dashed;'><input type='button' class='selector' id='sel8' onclick='ranking()' value='ランキングを表示'><br><input type='button' class='selector' id='sel8' onclick='checker()' value='コントローラー'><br></div>";
+}
+function rkey(){
+    var n = [];
+    var cm = 0;
+    var n0 = null;
+    while (true){
+        n0 = Math.floor(Math.random() * (nums.length));
+        if (cm === 0){n.push(key[nums[n0]]);}
+        else{
+            if (n.indexOf(key[nums[n0]]) < 0){n.push(key[nums[n0]]);}
+            if (n.length >= 4 || cm >= 10){if (cm >= 10) console.log(10);break;}
+        }cm ++;}
+    document.getElementById('dispkey').innerHTML = n.join(", ");
 }
 function keyselect(){
     b0 = true;
-    document.getElementById('main').innerHTML = "<p class='msg_c' onkeydown='keyset()'>キーを入力してください:</p><p id='dispcourse'>キー:&#32;</p><p class='msg_c' id=dispkey>-, -, -, -</p><input type='button' class='selector' id='sel7' onclick='startcheck_1()' value='Continue'><br><input type='button' class='selector' id='sel_menu' onclick='mainMenu()' value='Back'><br>";
+    document.getElementById('main').innerHTML = "<p class='msg_c' onkeydown='keyset()'>キーを入力してください:</p><p id='dispcourse'>キー:&#32;</p><p class='msg_c' id=dispkey>-, -, -, -</p><input type='button' class='selector' id='sel7' onclick='rkey()' value='Random'><br><input type='button' class='selector' id='sel7' onclick='startcheck_1()' value='Continue'><br><input type='button' class='selector' id='sel_menu' onclick='mainMenu()' value='Back'><br>";
     keyname = ['-', '-', '-', '-'];
 }
 function keyset(){if (b0){c0 += 1;if (key[event.keyCode] === undefined){window.alert('このキーは入力できません:\nkeyCode=' + event.keyCode);}else{keyname.push(key[event.keyCode]);keyname.shift();document.getElementById('dispkey').innerHTML = keyname.join(', ');}}}
