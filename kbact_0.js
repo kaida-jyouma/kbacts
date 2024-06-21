@@ -1,3 +1,4 @@
+/*! kbacts | MIT License | github.com/kaida-jyouma/kbacts */
 var lst = localStorage;var total;var db = false;var s1 = 0;
 var first_0 = false;var keynums = [];var trp = false;var p5 = false;
 var times = 0;var c0 = 0;var types = 0;var half = false;var scpl = false;
