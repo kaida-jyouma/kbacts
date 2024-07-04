@@ -1,6 +1,8 @@
 # kbacts
 キーボード連打ゲーム。  
 このゲームをプレイして発生した損害について、製作者は責任を負いません。
+
+プレイ: https://kaida-jyouma.github.io/kbacts/kbact_0.html
 ## 概要
 ### kbact_0
 #### ゲーム内容
